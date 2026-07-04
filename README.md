@@ -65,8 +65,8 @@ connection string. Order matters because of foreign keys — `game` and
 `player` first, then the rest:
 
 ```sql
-INSERT INTO game (title, base_price, genre, platform)
-VALUES ('Starbound Drift', 19.99, 'Roguelike', 'PC');
+INSERT INTO game (title, base_price, genre, platform, image_url)
+VALUES ('Starbound Drift', 19.99, 'Roguelike', 'PC', "image_url");
 
 INSERT INTO player (username, region)
 VALUES ('moonrunner_22', 'Asia');
@@ -92,20 +92,6 @@ VALUES (1, 'level_complete', now());
 manually (e.g. `'2026-06-01 14:30:00'`) when you want historical-looking data
 for the time-series charts.
 
-## 4. Deploy to Streamlit Community Cloud
-
-1. Push this folder to a GitHub repo (it's already `.gitignore`'d so your
-   real secrets won't be committed).
-2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with
-   GitHub, and click **New app**.
-3. Point it at your repo, branch, and `app.py` as the main file.
-4. Before/after deploying, open **Settings → Secrets** on the app and paste:
-   ```toml
-   DATABASE_URL = "postgresql://USER:PASSWORD@HOST.neon.tech/DBNAME?sslmode=require"
-   ```
-5. Deploy. Same Neon database, same data, just publicly hosted — good for
-   a portfolio link.
-
 ## Notes on the schema
 
 - Every table that needs a date now has one: `game_sale.sale_date`,
@@ -113,7 +99,7 @@ for the time-series charts.
   `review.reviewed_at`, and `event_log.event_timestamp` — all
   `TIMESTAMP/DATE DEFAULT now()`, so existing INSERT statements that omit
   them still work.
-- This unlocks real time-series: **Revenue Over Time** (Overview) now
+- This unlocks real-time series: **Revenue Over Time** (Overview) now
   combines sales + purchases by day, **Sessions Over Time** and
   **Player Retention** (Players & Engagement) use `session_start` directly,
   and **Reviews Over Time** (Reviews) tracks rating trend by day.
@@ -124,6 +110,7 @@ for the time-series charts.
 - AI-assisted churn prediction and sentiment analysis were called out as
   *future growth* in your original deck, not MVP — intentionally left out
   here so the app stays simple and every chart is backed by a real column.
+- Admin page allows adding of games and populating tables with randomized data as well as a cover image using the RAWG API so manual SQL queries to populate tables can be avoided
 
 ## Possible next steps
 
