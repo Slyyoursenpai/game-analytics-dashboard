@@ -10,9 +10,10 @@ the **User Behavior Analytics Platform for Video Games** course project.
 
 ```
 game-analytics-dashboard/
-├── home.py                          # Overview page (entry point)
-├── db.py                           # DB engine + cached query helper
-├── schema.sql                      # CREATE TABLE statements (run once on Neon)
+├── home.py      #entry point
+├── app.py       # Overview page
+├── db.py        # DB engine + cached query helper
+├── schema.sql   # CREATE TABLE statements (run once on Neon)
 ├── pages/
 │   ├── 1_Revenue_and_Games.py
 │   ├── 2_Players_and_Engagement.py
